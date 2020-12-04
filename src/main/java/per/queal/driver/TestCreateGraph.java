@@ -8,6 +8,7 @@ import com.arangodb.entity.EdgeDefinition;
 import com.arangodb.model.GraphCreateOptions;
 import com.google.common.collect.Lists;
 import per.queal.pojo.Cause;
+import per.queal.pojo.CauseNoExt;
 import per.queal.pojo.VInstanceMetric;
 
 import java.util.Collection;
@@ -30,6 +31,7 @@ public class TestCreateGraph {
                 EdgeDefinition edgeDefinition = new EdgeDefinition();
                 edgeDefinition
                         .collection(Cause.label)
+                        .collection(CauseNoExt.label)
                         .from(VInstanceMetric.label)
                         .to(VInstanceMetric.label);
                 edgeDefinitionList.add(edgeDefinition);

@@ -8,6 +8,7 @@ import com.arangodb.entity.KeyOptions;
 import com.arangodb.entity.KeyType;
 import com.arangodb.model.CollectionCreateOptions;
 import per.queal.pojo.Cause;
+import per.queal.pojo.CauseNoExt;
 import per.queal.pojo.VInstanceMetric;
 
 public class TestCreateSchema {
@@ -24,8 +25,17 @@ public class TestCreateSchema {
                 System.out.println("Collection created: " + vInstanceMetricCollection.getName());
             }
 
+
+
             if (!arangoDB.db(dbName).collection(Cause.label).exists()) {
                 CollectionEntity causeCollection = arangoDB.db(dbName).createCollection(Cause.label,
+                        new CollectionCreateOptions()
+                                .type(CollectionType.EDGES));
+                System.out.println("Collection created: " + causeCollection.getName());
+            }
+
+            if (!arangoDB.db(dbName).collection(CauseNoExt.label).exists()) {
+                CollectionEntity causeCollection = arangoDB.db(dbName).createCollection(CauseNoExt.label,
                         new CollectionCreateOptions()
                                 .type(CollectionType.EDGES));
                 System.out.println("Collection created: " + causeCollection.getName());

@@ -20,6 +20,7 @@ public class TestAdd {
         String graphName = "RootCauseGraph";
 
         try {
+            ArangoDatabase db = arangoDB.db(dbName);
             ArangoGraph graph = arangoDB.db(dbName).graph(graphName);
 
             ArangoCollection instanceMetricCollection = arangoDB.db(dbName).collection(VInstanceMetric.label);
