@@ -1,9 +1,7 @@
 package per.queal.driver;
 
+import com.alibaba.fastjson.JSON;
 import com.arangodb.*;
-import com.arangodb.entity.BaseDocument;
-import com.arangodb.entity.DocumentCreateEntity;
-import com.arangodb.util.MapBuilder;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +9,6 @@ import per.queal.pojo.Cause;
 import per.queal.pojo.VInstanceMetric;
 
 import java.util.List;
-import java.util.Map;
 
 public class TestQuery {
 
@@ -50,14 +47,30 @@ public class TestQuery {
                         "RETURN length", Long.class).next();
                 System.out.println("VInstanceMetric count: " + size);
                 System.out.println("VInstanceMetric cost: " + (System.currentTimeMillis() - start));
+            }
+
+            {
+                long start = System.currentTimeMillis();
+                System.out.println("-------------------------------------------------------");
+                ArangoCursor<VInstanceMetric> result = db.query("FOR v IN VInstanceMetric" +
+                                "                        FILTER v.name == 'InstanceMetricQvmdZyyzhpKt79t5NWfovN0mnwJM3q92'" +
+                                "                        RETURN v", VInstanceMetric.class);
+                List<VInstanceMetric> list = Lists.newArrayList();
+
+                while(result.hasNext()){
+                    list.add(result.next());
+                }
+
+                System.out.println("VInstanceMetric : " + JSON.toJSONString(list));
+                System.out.println("VInstanceMetric cost: " + (System.currentTimeMillis() - start));
 
             }
 
-            arangoDB.shutdown();
         } catch (ArangoDBException e) {
             e.printStackTrace();
+        } finally {
+            arangoDB.shutdown();
         }
-
 
     }
 }
