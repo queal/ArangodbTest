@@ -1,8 +1,5 @@
 package per.queal.pojo;
 
-import com.arangodb.entity.BaseDocument;
-import com.arangodb.entity.DocumentField;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
@@ -12,8 +9,9 @@ public class CauseNoExt {
 
     private static Integer[] statusArray = new Integer[]{0, 1, 2};
 
-    private String from;
-    private String to;
+    private String id;
+    private String _from;
+    private String _to;
 
     private Float confidence;
     private Boolean isManual;
@@ -21,8 +19,8 @@ public class CauseNoExt {
 
     public static CauseNoExt gen(String from, String to) {
         CauseNoExt c = new CauseNoExt();
-        c.setFrom(from);
-        c.setTo(to);
+        c.set_from(from);
+        c.set_to(to);
         c.setConfidence(RandomUtils.nextFloat());
         c.setManual(false);
         c.setStatus(statusArray[RandomUtils.nextInt(0, statusArray.length - 1)]);
@@ -41,20 +39,28 @@ public class CauseNoExt {
                 .property("status", getStatus()).next();
     }
 
-    public String getFrom() {
-        return from;
+    public String getId() {
+        return id;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTo() {
-        return to;
+    public String get_from() {
+        return _from;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void set_from(String _from) {
+        this._from = _from;
+    }
+
+    public String get_to() {
+        return _to;
+    }
+
+    public void set_to(String _to) {
+        this._to = _to;
     }
 
     public Float getConfidence() {

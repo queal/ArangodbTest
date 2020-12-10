@@ -1,15 +1,11 @@
 package per.queal.driver;
 
-import com.alibaba.fastjson.JSON;
 import com.arangodb.*;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.DocumentField;
 import com.arangodb.entity.EdgeEntity;
 import com.arangodb.util.ArangoSerializer;
-import com.arangodb.velocypack.VPackModule;
-import com.arangodb.velocypack.VPackSetupContext;
 import com.arangodb.velocypack.VPackSlice;
-import com.arangodb.velocypack.ValueType;
 import com.google.common.collect.Maps;
 import per.queal.pojo.CauseNoExt;
 import per.queal.pojo.VInstanceMetric;
@@ -42,15 +38,21 @@ public class TestAddWithNoExt2 {
                 CauseNoExt causeNoExt = CauseNoExt.gen(fromEntity.getId(), toEntity.getId());
 
                 Map addFields = Maps.newHashMap();
-                addFields.put(DocumentField.Type.FROM.getSerializeName(), causeNoExt.getFrom());
-                addFields.put(DocumentField.Type.TO.getSerializeName(), causeNoExt.getTo());
+//                addFields.put(DocumentField.Type.FROM.getSerializeName(), causeNoExt.get_from());
+//                addFields.put(DocumentField.Type.TO.getSerializeName(), causeNoExt.get_to());
                 VPackSlice vPackSlice = graph.db().util().serialize(causeNoExt, new ArangoSerializer.Options().additionalFields(addFields));
 
                 EdgeEntity causeInGraph = causeArangoCollection.insertEdge(vPackSlice);
                 System.out.println(System.currentTimeMillis() - _start);
 
-                CauseNoExt c = causeArangoCollection.getEdge(causeInGraph.getKey(), CauseNoExt.class);
-                System.out.println(JSON.toJSONString(c));
+//                CauseNoExt c = causeArangoCollection.getEdge(causeInGraph.getKey(), CauseNoExt.class);
+                {
+                    VPackSlice result = causeArangoCollection.getEdge(causeInGraph.getKey(), VPackSlice.class);
+                    System.out.println("result: " + result);
+                    CauseNoExt c = graph.db().util().deserialize(result, CauseNoExt.class);
+                    c.setId(result.get("_key").getAsString());
+                    System.out.println(c.getId());
+                }
 
             }
             System.out.println(System.currentTimeMillis() - start);

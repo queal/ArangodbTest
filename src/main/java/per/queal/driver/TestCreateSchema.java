@@ -25,8 +25,6 @@ public class TestCreateSchema {
                 System.out.println("Collection created: " + vInstanceMetricCollection.getName());
             }
 
-
-
             if (!arangoDB.db(dbName).collection(Cause.label).exists()) {
                 CollectionEntity causeCollection = arangoDB.db(dbName).createCollection(Cause.label,
                         new CollectionCreateOptions()

@@ -20,23 +20,26 @@ public class TestCrcChain {
             ArangoGraph graph = arangoDB.db(dbName).graph(graphName);
 
             ArangoCollection instanceMetricCollection = arangoDB.db(dbName).collection(VInstanceMetric.label);
-//            instanceMetricCollection.truncate();
+            instanceMetricCollection.truncate();
             ArangoCollection causeCollection = arangoDB.db(dbName).collection(Cause.label);
-//            causeCollection.truncate();
+            causeCollection.truncate();
 
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 1; i++) {
                 DocumentCreateEntity<VInstanceMetric> v1 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
                 DocumentCreateEntity<VInstanceMetric> v2 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
                 DocumentCreateEntity<VInstanceMetric> v3 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
                 DocumentCreateEntity<VInstanceMetric> v4 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
                 DocumentCreateEntity<VInstanceMetric> v5 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
+                DocumentCreateEntity<VInstanceMetric> v6 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
 
                 ArangoEdgeCollection causeArangoCollection = graph.edgeCollection(Cause.label);
                 causeArangoCollection.insertEdge(Cause.gen(v1.getId(), v2.getId()));
                 causeArangoCollection.insertEdge(Cause.gen(v2.getId(), v3.getId()));
                 causeArangoCollection.insertEdge(Cause.gen(v3.getId(), v4.getId()));
                 causeArangoCollection.insertEdge(Cause.gen(v4.getId(), v5.getId()));
-                causeArangoCollection.insertEdge(Cause.gen(v5.getId(), v1.getId()));
+                causeArangoCollection.insertEdge(Cause.gen(v3.getId(), v6.getId()));
+//                causeArangoCollection.insertEdge(Cause.gen(v6.getId(), v7.getId()));
+//                causeArangoCollection.insertEdge(Cause.gen(v5.getId(), v1.getId()));
 
             }
 

@@ -23,7 +23,6 @@ public class Cause extends BaseDocument {
 
     public static Cause gen(String from, String to) {
         Cause c = new Cause();
-        c.setKey("CID-" + RandomStringUtils.randomAlphanumeric(8));
         c.setFrom(from);
         c.setTo(to);
         c.setConfidence(RandomUtils.nextFloat());

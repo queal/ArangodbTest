@@ -28,13 +28,23 @@ public class TestCreateGraph {
             if (!arangoDB.db(dbName).graph(graphName).exists()) {
                 List<EdgeDefinition> edgeDefinitionList = Lists.newArrayList();
 
-                EdgeDefinition edgeDefinition = new EdgeDefinition();
-                edgeDefinition
-                        .collection(Cause.label)
-                        .collection(CauseNoExt.label)
-                        .from(VInstanceMetric.label)
-                        .to(VInstanceMetric.label);
-                edgeDefinitionList.add(edgeDefinition);
+                {
+                    EdgeDefinition edgeDefinition = new EdgeDefinition();
+                    edgeDefinition
+                            .collection(Cause.label)
+                            .from(VInstanceMetric.label)
+                            .to(VInstanceMetric.label);
+                    edgeDefinitionList.add(edgeDefinition);
+                }
+
+                {
+                    EdgeDefinition edgeDefinition = new EdgeDefinition();
+                    edgeDefinition
+                            .collection(CauseNoExt.label)
+                            .from(VInstanceMetric.label)
+                            .to(VInstanceMetric.label);
+                    edgeDefinitionList.add(edgeDefinition);
+                }
 
                 arangoDB.db(dbName).createGraph(graphName, edgeDefinitionList);
                 System.out.println("init graph success");

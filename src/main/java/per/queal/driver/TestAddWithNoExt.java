@@ -5,15 +5,11 @@ import com.arangodb.*;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.DocumentField;
 import com.arangodb.entity.EdgeEntity;
-import com.arangodb.util.ArangoSerializer;
 import com.arangodb.velocypack.VPackModule;
 import com.arangodb.velocypack.VPackSetupContext;
 import com.arangodb.velocypack.ValueType;
-import com.google.common.collect.Maps;
 import per.queal.pojo.CauseNoExt;
 import per.queal.pojo.VInstanceMetric;
-
-import java.util.Map;
 
 public class TestAddWithNoExt {
 
@@ -27,14 +23,14 @@ public class TestAddWithNoExt {
             public <C extends VPackSetupContext<C>> void setup(C c) {
                 c.registerDeserializer(CauseNoExt.class, (parent, vpack, context) -> {
                     CauseNoExt obj = new CauseNoExt();
-                    obj.setFrom(vpack.get(DocumentField.Type.FROM.getSerializeName()).getAsString());
-                    obj.setTo(vpack.get(DocumentField.Type.TO.getSerializeName()).getAsString());
+                    obj.set_from(vpack.get(DocumentField.Type.FROM.getSerializeName()).getAsString());
+                    obj.set_to(vpack.get(DocumentField.Type.TO.getSerializeName()).getAsString());
                     return obj;
                 });
                 c.registerSerializer(CauseNoExt.class, (builder, attribute, value, context) -> {
                     builder.add(attribute, ValueType.OBJECT);
-                    builder.add(DocumentField.Type.FROM.getSerializeName(), ((CauseNoExt) value).getFrom());
-                    builder.add(DocumentField.Type.TO.getSerializeName(), ((CauseNoExt) value).getTo());
+                    builder.add(DocumentField.Type.FROM.getSerializeName(), ((CauseNoExt) value).get_from());
+                    builder.add(DocumentField.Type.TO.getSerializeName(), ((CauseNoExt) value).get_to());
                     builder.close();
                 });
             }

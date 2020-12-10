@@ -16,13 +16,14 @@ public class VInstanceMetric extends BaseDocument {
     private String instanceId;
     private String metric;
     private String signature;
+    private Integer status;
 
     public static VInstanceMetric gen() {
         VInstanceMetric v = new VInstanceMetric();
-        v.setKey("VID-" + RandomStringUtils.randomAlphanumeric(8));
         v.setName("InstanceMetric" + RandomStringUtils.randomAlphanumeric(32));
         v.setInstanceId(RandomStringUtils.randomAlphanumeric(32));
         v.setMetric(metrics[RandomUtils.nextInt(0, metrics.length - 1)]);
+        v.setStatus(RandomUtils.nextInt(0, 10));
         return v;
     }
 
@@ -64,5 +65,13 @@ public class VInstanceMetric extends BaseDocument {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

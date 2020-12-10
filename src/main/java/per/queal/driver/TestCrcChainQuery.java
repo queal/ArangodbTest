@@ -39,6 +39,7 @@ public class TestCrcChainQuery {
 
             result.get("inV");
             System.out.println(result);
+
         } catch (ArangoDBException e) {
             e.printStackTrace();
         } finally {

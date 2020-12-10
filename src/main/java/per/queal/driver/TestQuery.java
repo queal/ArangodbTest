@@ -57,7 +57,7 @@ public class TestQuery {
                                 "                        RETURN v", VInstanceMetric.class);
                 List<VInstanceMetric> list = Lists.newArrayList();
 
-                
+
                 while(result.hasNext()){
                     list.add(result.next());
                 }
