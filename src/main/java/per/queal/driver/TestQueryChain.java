@@ -50,6 +50,7 @@ public class TestQueryChain {
 
             while (cursor.hasNext()) {
                 List s = cursor.next();
+                
                 System.out.println(s);
             }
 
