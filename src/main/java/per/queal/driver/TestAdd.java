@@ -29,7 +29,7 @@ public class TestAdd {
             causeCollection.truncate();
 
             long start = System.currentTimeMillis();
-            for (int i = 0; i < 10000 * 10; i++) {
+            for (int i = 0; i < 1; i++) {
                 long _start = System.currentTimeMillis();
                 DocumentCreateEntity<VInstanceMetric> fromEntity = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
                 DocumentCreateEntity<VInstanceMetric> toEntity = instanceMetricCollection.insertDocument(VInstanceMetric.gen());

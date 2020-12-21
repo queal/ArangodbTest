@@ -2,10 +2,13 @@ package per.queal.pojo;
 
 import com.arangodb.entity.BaseDocument;
 import com.arangodb.entity.DocumentField;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
+
+import java.util.List;
 
 public class Cause extends BaseDocument {
     public static String label = "Cause";
@@ -20,6 +23,7 @@ public class Cause extends BaseDocument {
     private Float confidence;
     private Boolean isManual;
     private Integer status;
+    private List<String> ips;
 
     public static Cause gen(String from, String to) {
         Cause c = new Cause();
@@ -28,6 +32,7 @@ public class Cause extends BaseDocument {
         c.setConfidence(RandomUtils.nextFloat());
         c.setManual(false);
         c.setStatus(statusArray[RandomUtils.nextInt(0, statusArray.length - 1)]);
+        c.setIps(Lists.newArrayList("192.168.1.100", "192.168.1.101"));
         return c;
     }
 
@@ -81,5 +86,13 @@ public class Cause extends BaseDocument {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<String> getIps() {
+        return ips;
+    }
+
+    public void setIps(List<String> ips) {
+        this.ips = ips;
     }
 }

@@ -33,7 +33,7 @@ public class TestQuery {
             {
                 long start = System.currentTimeMillis();
                 System.out.println("-------------------------------------------------------");
-                Long size = db.query("FOR t IN Cause FILTER t.status == 0 COLLECT WITH COUNT INTO length RETURN length", Long.class).next();
+                Long size = db.query("FOR t IN Cause COLLECT WITH COUNT INTO length RETURN length", Long.class).next();
                 System.out.println("Cause count: " + size);
                 System.out.println("Cause cost: " + (System.currentTimeMillis() - start));
             }
@@ -42,7 +42,7 @@ public class TestQuery {
                 long start = System.currentTimeMillis();
                 System.out.println("-------------------------------------------------------");
                 Long size = db.query("FOR t IN VInstanceMetric\n" +
-                        "    FILTER t.metric == 'cpu'\n" +
+                        "    " +
                         "    COLLECT WITH COUNT INTO length\n" +
                         "RETURN length", Long.class).next();
                 System.out.println("VInstanceMetric count: " + size);
@@ -50,20 +50,18 @@ public class TestQuery {
             }
 
             {
-                long start = System.currentTimeMillis();
-                System.out.println("-------------------------------------------------------");
-                ArangoCursor<VInstanceMetric> result = db.query("FOR v IN VInstanceMetric" +
-                                "                        FILTER v.name == 'InstanceMetricQvmdZyyzhpKt79t5NWfovN0mnwJM3q92'" +
-                                "                        RETURN v", VInstanceMetric.class);
-                List<VInstanceMetric> list = Lists.newArrayList();
-
-
-                while(result.hasNext()){
-                    list.add(result.next());
-                }
-
-                System.out.println("VInstanceMetric : " + JSON.toJSONString(list));
-                System.out.println("VInstanceMetric cost: " + (System.currentTimeMillis() - start));
+//                long start = System.currentTimeMillis();
+//                System.out.println("-------------------------------------------------------");
+//                ArangoCursor<VInstanceMetric> result = db.query("FOR v IN VInstanceMetric " +
+//                                "                        FOR inV, e IN OUTBOUND v Cause" +
+//                                "                        RETURN v", VInstanceMetric.class);
+//                List<VInstanceMetric> list = Lists.newArrayList();
+//                while(result.hasNext()){
+//                    list.add(result.next());
+//                }
+//
+//                System.out.println("VInstanceMetric : " + JSON.toJSONString(list));
+//                System.out.println("VInstanceMetric cost: " + (System.currentTimeMillis() - start));
 
             }
 

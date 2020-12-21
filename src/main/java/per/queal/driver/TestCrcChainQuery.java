@@ -28,17 +28,25 @@ public class TestCrcChainQuery {
 
             System.out.println(result);
 
-            result = graph.db().query("FOR outV IN VInstanceMetric\n" +
-                     "FOR inV, c, p IN OUTBOUND outV Cause \n" +
-                     "FILTER \n" +
-                     "    outV.name == 'InstanceMetricGO4LmqUlKzAGqUGvpUHslguo2xiOWNhp' \n" +
-                     "    and inV.name == 'InstanceMetricIWYLQOWadBWETuLgx72rWYhbzZaDR4Ai'\n" +
-                     "    and c.status == 0\n" +
-                     "LIMIT 0,10\n" +
-                     "RETURN {inV, outV, c, p}", VPackSlice.class).next();
+//            result = graph.db().query("FOR outV IN VInstanceMetric\n" +
+//                     "FOR inV, c, p IN OUTBOUND outV Cause \n" +
+//                     "FILTER \n" +
+//                     "    outV.name == 'InstanceMetricGO4LmqUlKzAGqUGvpUHslguo2xiOWNhp' \n" +
+//                     "    and inV.name == 'InstanceMetricIWYLQOWadBWETuLgx72rWYhbzZaDR4Ai'\n" +
+//                     "    and c.status == 0\n" +
+//                     "LIMIT 0,10\n" +
+//                     "RETURN {inV, outV, c, p}", VPackSlice.class).next();
+//
+//            result.get("inV");
+//            System.out.println(result);
 
-            result.get("inV");
-            System.out.println(result);
+            Integer count = graph.db().query("WITH VInstanceMetric\n" +
+                    "    FOR v, e IN OUTBOUND SHORTEST_PATH 'VInstanceMetric/16585194' TO 'VInstanceMetric/16585186' Cause\n" +
+                    "    FILTER e.status == 0\n" +
+                    "    COLLECT WITH COUNT INTO length \n" +
+                    "RETURN length", Integer.class).next();
+            System.out.println("count: " + count);
+
 
         } catch (ArangoDBException e) {
             e.printStackTrace();
