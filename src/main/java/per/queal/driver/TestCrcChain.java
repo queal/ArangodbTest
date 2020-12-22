@@ -4,6 +4,7 @@ import com.arangodb.*;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.EdgeEntity;
 import com.arangodb.entity.QueryCachePropertiesEntity;
+import com.arangodb.entity.VertexEntity;
 import com.arangodb.model.TransactionOptions;
 import per.queal.pojo.Cause;
 import per.queal.pojo.VInstanceMetric;
@@ -25,12 +26,14 @@ public class TestCrcChain {
             causeCollection.truncate();
 
             for (int i = 0; i < 1; i++) {
-                DocumentCreateEntity<VInstanceMetric> v1 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
-                DocumentCreateEntity<VInstanceMetric> v2 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
-                DocumentCreateEntity<VInstanceMetric> v3 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
-                DocumentCreateEntity<VInstanceMetric> v4 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
-                DocumentCreateEntity<VInstanceMetric> v5 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
-                DocumentCreateEntity<VInstanceMetric> v6 = instanceMetricCollection.insertDocument(VInstanceMetric.gen());
+
+                ArangoVertexCollection vertexCollection = graph.vertexCollection(VInstanceMetric.label);
+                VertexEntity v1 = vertexCollection.insertVertex(VInstanceMetric.gen());
+                VertexEntity v2 = vertexCollection.insertVertex(VInstanceMetric.gen());
+                VertexEntity v3 = vertexCollection.insertVertex(VInstanceMetric.gen());
+                VertexEntity v4 = vertexCollection.insertVertex(VInstanceMetric.gen());
+                VertexEntity v5 = vertexCollection.insertVertex(VInstanceMetric.gen());
+                VertexEntity v6 = vertexCollection.insertVertex(VInstanceMetric.gen());
 
                 ArangoEdgeCollection causeArangoCollection = graph.edgeCollection(Cause.label);
                 causeArangoCollection.insertEdge(Cause.gen(v1.getId(), v2.getId()));
