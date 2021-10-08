@@ -1,11 +1,8 @@
 package per.queal.pojo;
 
 import com.arangodb.entity.BaseDocument;
-import com.arangodb.entity.DocumentField;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
-import org.apache.tinkerpop.gremlin.structure.Vertex;
 
 public class VInstanceMetric extends BaseDocument {
 
@@ -25,14 +22,6 @@ public class VInstanceMetric extends BaseDocument {
         v.setMetric(metrics[RandomUtils.nextInt(0, metrics.length - 1)]);
         v.setStatus(RandomUtils.nextInt(0, 10));
         return v;
-    }
-
-    public Vertex toVertex(GraphTraversalSource g) {
-        return g.addV(label)
-                .property("name", getName())
-                .property("instanceId", getInstanceId())
-                .property("metric", getMetric())
-                .property("signature", getSignature()).next();
     }
 
     public String getName() {

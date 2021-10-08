@@ -21,9 +21,9 @@ public class TestCrcChain {
             ArangoGraph graph = arangoDB.db(dbName).graph(graphName);
 
             ArangoCollection instanceMetricCollection = arangoDB.db(dbName).collection(VInstanceMetric.label);
-            instanceMetricCollection.truncate();
+//            instanceMetricCollection.truncate();
             ArangoCollection causeCollection = arangoDB.db(dbName).collection(Cause.label);
-            causeCollection.truncate();
+//            causeCollection.truncate();
 
             for (int i = 0; i < 1; i++) {
 

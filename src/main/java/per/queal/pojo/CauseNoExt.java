@@ -1,8 +1,6 @@
 package per.queal.pojo;
 
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
-import org.apache.tinkerpop.gremlin.structure.Vertex;
 
 public class CauseNoExt {
     public static String label = "CauseNoExt";
@@ -29,14 +27,6 @@ public class CauseNoExt {
 
     public static CauseNoExt gen() {
         return gen(null, null);
-    }
-
-
-    public Vertex toVertex(GraphTraversalSource g) {
-        return g.addV(label)
-                .property("confidence", getConfidence())
-                .property("isManual", getManual())
-                .property("status", getStatus()).next();
     }
 
     public String getId() {

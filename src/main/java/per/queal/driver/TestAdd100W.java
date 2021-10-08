@@ -1,9 +1,6 @@
 package per.queal.driver;
 
-import com.arangodb.ArangoCollection;
-import com.arangodb.ArangoDB;
-import com.arangodb.ArangoEdgeCollection;
-import com.arangodb.ArangoGraph;
+import com.arangodb.*;
 import com.arangodb.entity.DocumentCreateEntity;
 import per.queal.pojo.Cause;
 import per.queal.pojo.VInstanceMetric;
@@ -18,20 +15,23 @@ public class TestAdd100W {
 
         Executor executor = Executors.newFixedThreadPool(32);
 
-        int count = 10000 * 100;
+//        int count = 10000 * 1000;
+        int count = 10;
         CountDownLatch latch = new CountDownLatch(count);
 
         ArangoDB arangoDB = new ArangoDB.Builder().host("127.0.0.1", 8529).build();
+
         String dbName = "root-cause";
         String graphName = "RootCauseGraph";
 
         try {
+            ArangoDatabase db = arangoDB.db(dbName);
             ArangoGraph graph = arangoDB.db(dbName).graph(graphName);
 
             ArangoCollection instanceMetricCollection = arangoDB.db(dbName).collection(VInstanceMetric.label);
-            instanceMetricCollection.truncate();
+//            instanceMetricCollection.truncate();
             ArangoCollection causeCollection = arangoDB.db(dbName).collection(Cause.label);
-            causeCollection.truncate();
+//            causeCollection.truncate();
 
             long start = System.currentTimeMillis();
             for (int i = 0; i < count; i++) {

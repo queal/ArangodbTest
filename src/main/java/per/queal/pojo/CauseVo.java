@@ -8,15 +8,10 @@ import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
 
-public class Cause extends BaseDocument {
+public class CauseVo extends BaseDocument {
     public static String label = "Cause";
 
     private static Integer[] statusArray = new Integer[]{0, 1, 2};
-
-    @DocumentField(DocumentField.Type.FROM)
-    private String from;
-    @DocumentField(DocumentField.Type.TO)
-    private String to;
 
     private Float confidence;
     private Boolean isManual;
@@ -24,10 +19,8 @@ public class Cause extends BaseDocument {
     private Integer status;
     private List<String> ips;
 
-    public static Cause gen(String from, String to) {
-        Cause c = new Cause();
-        c.setFrom(from);
-        c.setTo(to);
+    public static CauseVo gen(String from, String to) {
+        CauseVo c = new CauseVo();
         c.setConfidence(RandomUtils.nextFloat(0, 1));
         c.setManual(false);
         c.setInstanceId(RandomStringUtils.randomNumeric(10));
@@ -36,24 +29,8 @@ public class Cause extends BaseDocument {
         return c;
     }
 
-    public static Cause gen() {
+    public static CauseVo gen() {
         return gen(null, null);
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
     }
 
     public Float getConfidence() {
